@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soluciones de Software · Colombia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#0d1b2e;
+  --navy2:#15253f;
+  --blue:#1a4fd6;
+  --blue-light:#eef2ff;
+  --orange:#f55c1b;
+  --orange2:#d44d15;
+  --orange-light:#fff3ee;
+  --ai:#7c3aed;
+  --ai-light:#f5f3ff;
+  --ai-border:rgba(124,58,237,.18);
+  --white:#fff;
+  --off:#f5f6f8;
+  --ink:#0b1420;
+  --ink2:#364557;
+  --ink3:#7b8fa6;
+  --line:rgba(11,20,32,.07);
+  --line2:rgba(11,20,32,.13);
+  --r:10px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(0,0,.2,1);
+}
+
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--off);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ════════════════════════════
+   HERO
+════════════════════════════ */
+.hero{
+  width:100%;
+  background:var(--navy);
+  display:flex;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Decorative rings */
+.hero::before,.hero::after{
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+}
+.hero::before{
+  width:560px;height:560px;
+  top:-200px;right:-140px;
+  border:1px solid rgba(255,255,255,.04);
+}
+.hero::after{
+  width:340px;height:340px;
+  top:-100px;right:-40px;
+  border:1px solid rgba(255,255,255,.055);
+}
+
+/* AI ambient glow */
+.hero-glow{
+  position:absolute;
+  bottom:-120px;left:-80px;
+  width:400px;height:400px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+.hero-inner{
+  width:100%;max-width:1100px;
+  padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,3rem);
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,4vw,4rem);
+  align-items:center;
+}
+
+@media(max-width:720px){
+  .hero-inner{grid-template-columns:1fr;gap:2rem}
+  .hero-right{display:none}
+}
+
+/* LEFT col */
+.hero-left{}
+
+.status{
+  display:inline-flex;align-items:center;gap:7px;
+  margin-bottom:clamp(1.25rem,3vw,2rem);
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 0 3px rgba(34,197,94,.2);
+  animation:pulse 2.5s ease infinite;
+}
+.status-text{font-size:12px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.04em}
+
+.hero-h1{
+  font-size:clamp(2rem,3.8vw,3.2rem);
+  font-weight:700;
+  line-height:1.08;
+  letter-spacing:-.03em;
+  color:var(--white);
+  margin-bottom:clamp(.875rem,2vw,1.25rem);
+}
+
+.hero-h1 em{
+  font-style:italic;
+  font-weight:300;
+  color:rgba(255,255,255,.4);
+}
+
+.hero-sub{
+  font-size:clamp(13px,1.6vw,15px);
+  font-weight:300;
+  color:rgba(255,255,255,.5);
+  line-height:1.7;
+  max-width:440px;
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+}
+
+/* Trust badges row */
+.trust-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+}
+
+.trust-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:100px;
+  font-size:11.5px;font-weight:500;
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(4px);
+}
+
+.trust-badge svg{flex-shrink:0}
+
+.badge-ai{
+  border-color:rgba(167,139,250,.3);
+  color:rgba(196,181,253,.9);
+  background:rgba(124,58,237,.15);
+}
+
+/* Stats */
+.stats{
+  display:flex;
+  gap:clamp(1.5rem,3vw,3rem);
+  padding-top:clamp(1.25rem,2.5vw,2rem);
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.stat-val{
+  font-size:clamp(1.4rem,2.5vw,1.9rem);
+  font-weight:700;
+  color:var(--white);
+  letter-spacing:-.03em;
+  line-height:1;
+  margin-bottom:4px;
+}
+.stat-val span{color:var(--orange);font-size:.7em}
+.stat-label{font-size:11px;font-weight:400;color:rgba(255,255,255,.32);line-height:1.4;max-width:100px}
+
+/* RIGHT col — visual card stack */
+.hero-right{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-self:center;
+}
+
+.mini-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:10px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  backdrop-filter:blur(6px);
+  transition:background .3s;
+}
+
+.mini-card:hover{background:rgba(255,255,255,.09)}
+
+.mini-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+.mini-texts{}
+.mini-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:2px}
+.mini-sub{font-size:11.5px;font-weight:300;color:rgba(255,255,255,.38);line-height:1.4}
+
+.ai-pill-mini{
+  margin-left:auto;
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;border-radius:100px;
+  font-size:10px;font-weight:600;
+  background:rgba(124,58,237,.25);
+  border:1px solid rgba(167,139,250,.25);
+  color:rgba(196,181,253,.9);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* ════════════════════════════
+   MAIN CONTENT
+════════════════════════════ */
+.main{
+  width:100%;max-width:1100px;
+  padding:clamp(1.5rem,4vw,3rem) clamp(1.5rem,5vw,3rem);
+  display:flex;
+  flex-direction:column;
+  gap:clamp(1rem,2vw,1.25rem);
+  animation:fadeUp .5s .1s var(--ease) both;
+}
+
+.section-label{
+  font-size:10.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);
+  margin-bottom:clamp(.625rem,1.5vw,1rem);
+}
+
+/* Cards grid on desktop */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(.75rem,1.5vw,1.125rem);
+}
+
+@media(max-width:900px){.cards-grid{grid-template-columns:1fr}}
+
+/* ── CARD ── */
+.card{
+  background:var(--white);
+  border-radius:var(--r);
+  border:1px solid var(--line);
+  padding:clamp(1.125rem,2.5vw,1.5rem);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:box-shadow .28s var(--ease),transform .22s var(--ease),border-color .25s;
+}
+
+.card:hover{
+  box-shadow:0 8px 32px rgba(11,20,32,.1),0 2px 8px rgba(11,20,32,.06);
+  transform:translateY(-3px);
+  border-color:var(--line2);
+}
+
+.card-bar{
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  border-radius:3px 0 0 3px;
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .32s var(--ease);
+}
+.card:hover .card-bar{transform:scaleY(1)}
+.bar-blue{background:var(--blue)}
+.bar-orange{background:var(--orange)}
+.bar-green{background:#16a34a}
+
+.card-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;
+  padding:3px 9px;border-radius:100px;
+  margin-bottom:.75rem;
+  align-self:flex-start;
+}
+.chip-blue{background:var(--blue-light);color:#1d40af}
+.chip-orange{background:var(--orange-light);color:#9a3412}
+.chip-green{background:#f0fdf4;color:#15803d}
+
+.card-problem{
+  font-size:clamp(14px,1.5vw,15.5px);
+  font-weight:600;line-height:1.3;
+  color:var(--ink);margin-bottom:.5rem;
+}
+
+.card-solution{
+  font-size:12.5px;font-weight:400;
+  color:var(--ink3);line-height:1.55;
+  flex:1;
+}
+.card-solution b{font-weight:500;color:var(--ink2)}
+
+/* AI tag on card */
+.card-ai{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:.875rem;
+  padding:4px 10px;border-radius:100px;
+  font-size:10.5px;font-weight:600;
+  background:var(--ai-light);
+  border:1px solid var(--ai-border);
+  color:var(--ai);
+  align-self:flex-start;
+}
+
+.card-ai-optional{
+  background:#faf8ff;
+  border-color:rgba(124,58,237,.1);
+  color:#9b6dd6;
+}
+
+.ai-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2s ease infinite}
+
+.card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:clamp(.875rem,2vw,1.125rem);
+  padding-top:clamp(.75rem,1.5vw,1rem);
+  border-top:1px solid var(--line);
+}
+
+.card-cta-text{font-size:12px;font-weight:500;color:var(--ink3)}
+
+.arrow-btn{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--off);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background .22s,border-color .22s;
+}
+.card:hover .arrow-btn{background:var(--orange);border-color:var(--orange)}
+.card:hover .arrow-btn path{stroke:#fff}
+.arrow-btn path{stroke:var(--ink3);transition:stroke .2s}
+
+/* ════════════════════════════
+   AI SECTION BANNER
+════════════════════════════ */
+.ai-banner{
+  width:100%;max-width:1100px;
+  padding:0 clamp(1.5rem,5vw,3rem) clamp(1rem,2vw,1.5rem);
+  animation:fadeUp .5s .15s var(--ease) both;
+}
+
+.ai-box{
+  background:linear-gradient(135deg,#1a0a3c 0%,#0f1f3a 60%);
+  border-radius:var(--r);
+  border:1px solid rgba(167,139,250,.15);
+  padding:clamp(1.25rem,3vw,1.875rem) clamp(1.25rem,3vw,2rem);
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:clamp(1rem,2.5vw,1.75rem);
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+@media(max-width:680px){
+  .ai-box{grid-template-columns:1fr;text-align:left}
+  .ai-box-icon{display:none}
+  .ai-box-right{justify-self:start}
+}
+
+.ai-box::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.ai-box-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:rgba(124,58,237,.2);
+  border:1px solid rgba(167,139,250,.2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+.ai-box-text strong{
+  display:block;
+  font-size:clamp(14px,1.8vw,16px);
+  font-weight:700;
+  color:rgba(255,255,255,.92);
+  letter-spacing:-.01em;
+  margin-bottom:4px;
+}
+
+.ai-box-text p{
+  font-size:clamp(12px,1.4vw,13.5px);
+  font-weight:300;
+  color:rgba(255,255,255,.42);
+  line-height:1.6;
+  max-width:520px;
+}
+
+.ai-box-right{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:100px;
+  background:rgba(124,58,237,.2);
+  border:1px solid rgba(167,139,250,.25);
+  font-size:12px;font-weight:600;
+  color:rgba(196,181,253,.9);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* ════════════════════════════
+   CONTACT
+════════════════════════════ */
+.bottom{
+  width:100%;max-width:1100px;
+  padding:0 clamp(1.5rem,5vw,3rem) clamp(2rem,5vw,3.5rem);
+  animation:fadeUp .5s .2s var(--ease) both;
+}
+
+.contact-box{
+  background:var(--white);
+  border-radius:var(--r);
+  border:1px solid var(--line);
+  padding:clamp(1.25rem,3vw,2rem);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:clamp(1rem,3vw,2rem);
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+@media(max-width:600px){
+  .contact-box{grid-template-columns:1fr}
+}
+
+.contact-box::after{
+  content:'';position:absolute;
+  bottom:-50px;right:-50px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,92,27,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.contact-left strong{
+  display:block;
+  font-size:clamp(15px,2vw,18px);
+  font-weight:700;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:.375rem;
+}
+
+.contact-left p{
+  font-size:clamp(12.5px,1.5vw,14px);
+  font-weight:400;color:var(--ink3);line-height:1.6;
+}
+
+.urgency-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--orange-light);
+  border:1px solid rgba(245,92,27,.2);
+  border-radius:100px;
+  padding:5px 12px;
+  font-size:11px;font-weight:600;color:var(--orange2);
+  margin-top:.875rem;
+}
+.urgency-tag .urgency-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:pulse 2s ease infinite}
+
+.contact-right{
+  display:flex;flex-direction:column;gap:.625rem;align-items:flex-end;
+}
+
+@media(max-width:600px){.contact-right{align-items:stretch}}
+
+.contact-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-size:14px;font-weight:600;color:var(--white);
+  background:var(--navy);padding:13px 24px;border-radius:8px;
+  text-decoration:none;white-space:nowrap;
+  transition:background .22s,transform .15s;
+}
+.contact-btn:hover{background:var(--blue);transform:translateY(-1px)}
+
+.contact-fine{
+  font-size:11px;color:var(--ink3);text-align:right;line-height:1.5;
+}
+.contact-fine span{color:var(--ink2);font-weight:500}
+
+@media(max-width:600px){.contact-fine{text-align:left}}
+
+/* ════════════════════════════
+   MODAL
+════════════════════════════ */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(8,14,24,.65);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  z-index:500;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s var(--ease);
+}
+.overlay.open{opacity:1;pointer-events:all}
+
+.sheet{
+  background:var(--white);
+  border-radius:18px 18px 0 0;
+  width:100%;max-width:680px;
+  padding:0 clamp(1.25rem,4vw,2rem) clamp(2.5rem,5vw,3.5rem);
+  max-height:92vh;overflow-y:auto;
+  transform:translateY(100%);
+  transition:transform .42s var(--ease-out);
+}
+.overlay.open .sheet{transform:translateY(0)}
+
+.sheet-top{
+  position:sticky;top:0;background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:1rem 0 .875rem;
+  margin:0 clamp(-1.25rem,-4vw,-2rem);
+  padding-left:clamp(1.25rem,4vw,2rem);
+  padding-right:clamp(1.25rem,4vw,2rem);
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.75rem;z-index:10;
+}
+
+.sh-handle{width:36px;height:3px;border-radius:2px;background:#dde2e8;cursor:pointer}
+
+.sh-close{
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid var(--line2);background:transparent;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.sh-close:hover{background:var(--off)}
+
+.m-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  padding:4px 10px;border-radius:100px;margin-bottom:.75rem;
+}
+
+.m-title{
+  font-size:clamp(1.3rem,3.5vw,1.9rem);
+  font-weight:700;letter-spacing:-.025em;line-height:1.15;
+  color:var(--ink);margin-bottom:1.5rem;
+}
+
+/* AI feature block */
+.ai-feature{
+  background:var(--ai-light);
+  border:1px solid var(--ai-border);
+  border-radius:var(--r);
+  padding:1.125rem 1.25rem;
+  margin-bottom:1.75rem;
+}
+
+.ai-feature-head{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:.625rem;
+}
+
+.ai-icon-sm{
+  width:28px;height:28px;border-radius:7px;
+  background:rgba(124,58,237,.15);
+  border:1px solid var(--ai-border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+.ai-feature-title{
+  font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ai);
+}
+
+.ai-feature-body{
+  font-size:13.5px;font-weight:400;
+  color:#4c1d95;line-height:1.65;
+}
+
+.ai-optional-note{
+  margin-top:.625rem;
+  font-size:11.5px;font-weight:400;
+  color:#7c3aed;opacity:.65;
+}
+
+.video-ph{
+  width:100%;aspect-ratio:16/9;
+  background:var(--off);border-radius:var(--r);border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;
+  margin-bottom:1.75rem;
+}
+
+.play-wrap{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .18s;cursor:pointer;
+}
+.play-wrap:hover{background:var(--orange);transform:scale(1.08)}
+.video-lbl{font-size:12px;color:var(--ink3)}
+
+.m-lbl{
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:.5rem;margin-top:1.375rem;
+}
+
+.m-text{font-size:14px;font-weight:400;color:var(--ink2);line-height:1.75}
+
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:.75rem}
+
+.pill{
+  font-size:12px;font-weight:500;
+  padding:5px 13px;border-radius:100px;
+  background:var(--off);border:1px solid var(--line2);color:var(--ink2);
+}
+
+.day1-box{
+  background:#f0fdf4;border:1px solid rgba(22,163,74,.15);
+  border-radius:8px;padding:.875rem 1rem;margin-top:1.375rem;
+}
+.day1-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#15803d;margin-bottom:.3rem}
+.day1-text{font-size:13.5px;font-weight:400;color:#166534;line-height:1.55}
+
+.m-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
+
+.m-btn-primary{
+  flex:1;min-width:140px;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  font-size:14px;font-weight:600;color:var(--white);
+  background:var(--orange);padding:13px 20px;border-radius:8px;
+  text-decoration:none;transition:background .2s,transform .15s;
+}
+.m-btn-primary:hover{background:var(--orange2);transform:translateY(-1px)}
+
+.m-btn-secondary{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  font-size:14px;font-weight:500;color:var(--ink2);
+  background:var(--off);padding:13px 20px;border-radius:8px;
+  text-decoration:none;border:1px solid var(--line2);
+  transition:background .2s;
+}
+.m-btn-secondary:hover{background:#e9ecef}
+
+/* ════ ANIMATIONS ════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+  50%{box-shadow:0 0 0 6px rgba(34,197,94,.06)}
+}
+
+.hero{animation:fadeUp .5s var(--ease) both}
+.main{animation:fadeUp .5s .1s var(--ease) both}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="status">
+        <div class="status-dot"></div>
+        <span class="status-text">Disponible · Colombia</span>
+      </div>
+
+      <h1 class="hero-h1">Software que <em>transforma</em><br>cómo trabajan<br>las organizaciones.</h1>
+
+      <p class="hero-sub">Tres productos de última generación, validados en operación real, con inteligencia artificial integrada — listos para usar desde el primer día.</p>
+
+      <!-- Trust badges -->
+      <div class="trust-row">
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.3 2.8 3 .4-2.2 2.1.5 3L6 7.9 3.4 9.3l.5-3L1.7 4.2l3-.4z" fill="rgba(255,255,255,.6)"/></svg>
+          Validado en producción
+        </div>
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/><path d="M4 6l1.5 1.5L8 4" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Amigable para usuarios no técnicos
+        </div>
+        <div class="trust-badge badge-ai">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="2" fill="rgba(167,139,250,.9)"/><circle cx="6" cy="6" r="4.5" stroke="rgba(167,139,250,.5)" stroke-width="1"/><circle cx="6" cy="6" r="6" stroke="rgba(167,139,250,.2)" stroke-width="1" stroke-dasharray="2 2"/></svg>
+          Inteligencia Artificial integrada
+        </div>
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2.5" width="9" height="7" rx="1.5" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/><path d="M4 2.5V1.5M8 2.5V1.5M1.5 5h9" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Implementación el mismo día
+        </div>
+      </div>
+
+      <div class="stats">
+        <div>
+          <div class="stat-val">3<span>+</span></div>
+          <div class="stat-label">Soluciones listas para producción</div>
+        </div>
+        <div>
+          <div class="stat-val">1<span>día</span></div>
+          <div class="stat-label">Para operar tras la presentación</div>
+        </div>
+        <div>
+          <div class="stat-val">0<span>%</span></div>
+          <div class="stat-label">Código que el cliente debe entender</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right — mini card stack -->
+    <div class="hero-right">
+      <div class="mini-card">
+        <div class="mini-icon" style="background:rgba(29,64,175,.2)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="10" height="13" rx="1.5" stroke="rgba(147,197,253,.8)" stroke-width="1.3"/><path d="M6 6h5M6 9h5M6 12h3" stroke="rgba(147,197,253,.8)" stroke-width="1.1" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mini-texts">
+          <div class="mini-title">Gestión Documental</div>
+          <div class="mini-sub">Control de versiones · Flujos de aprobación</div>
+        </div>
+        <div class="ai-pill-mini">
+          <svg width="7" height="7" viewBox="0 0 7 7" fill="none"><circle cx="3.5" cy="3.5" r="3" fill="rgba(196,181,253,.8)"/></svg>
+          IA Opcional
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon" style="background:rgba(154,52,18,.2)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3.5A1.5 1.5 0 014.5 2h7L15 5.5V14a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 013 14V3.5z" stroke="rgba(253,186,116,.8)" stroke-width="1.3"/><path d="M11.5 2v3.5H15" stroke="rgba(253,186,116,.8)" stroke-width="1.1" stroke-linecap="round"/><path d="M6 10l2 2 4-4" stroke="rgba(253,186,116,.8)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="mini-texts">
+          <div class="mini-title">Contratos & Cobros</div>
+          <div class="mini-sub">Normativa colombiana · Firmas digitales</div>
+        </div>
+        <div class="ai-pill-mini">
+          <svg width="7" height="7" viewBox="0 0 7 7" fill="none"><circle cx="3.5" cy="3.5" r="3" fill="rgba(196,181,253,.8)"/></svg>
+          IA Opcional
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon" style="background:rgba(21,128,61,.2)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polyline points="2,13 5,8 8,10 12,4 16,7" stroke="rgba(134,239,172,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="4" r="1.5" fill="rgba(134,239,172,.8)"/></svg>
+        </div>
+        <div class="mini-texts">
+          <div class="mini-title">Trading Inteligente</div>
+          <div class="mini-sub">Análisis en tiempo real · Señales de mercado</div>
+        </div>
+        <div class="ai-pill-mini" style="background:rgba(124,58,237,.3);border-color:rgba(167,139,250,.35)">
+          <svg width="7" height="7" viewBox="0 0 7 7" fill="none"><circle cx="3.5" cy="3.5" r="3" fill="rgba(196,181,253,.9)"/></svg>
+          IA Core
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CARDS ══ -->
+<div class="main">
+  <p class="section-label">Soluciones disponibles — haga clic para ver el detalle</p>
+  <div class="cards-grid">
+
+    <!-- Documental -->
+    <div class="card" onclick="openModal('documental')">
+      <div class="card-bar bar-blue"></div>
+      <div class="card-chip chip-blue">Gestión Documental</div>
+      <p class="card-problem">Los documentos se pierden y nadie sabe cuál versión es la válida.</p>
+      <p class="card-solution"><b>Plataforma centralizada</b> con flujos de aprobación, versiones y trazabilidad — todo en un solo lugar.</p>
+      <div class="card-ai card-ai-optional">
+        <div class="ai-dot"></div>
+        IA disponible · Clasificación y extracción automática
+      </div>
+      <div class="card-footer">
+        <span class="card-cta-text">Ver solución completa</span>
+        <div class="arrow-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contratos -->
+    <div class="card" onclick="openModal('contratos')">
+      <div class="card-bar bar-orange"></div>
+      <div class="card-chip chip-orange">Contratos & Cuentas de Cobro</div>
+      <p class="card-problem">Entidades en Colombia gestionan contratos en papel — con todo el riesgo legal que eso implica.</p>
+      <p class="card-solution"><b>Sistema integral</b> adaptado a normativa colombiana, de la firma hasta el pago efectivo.</p>
+      <div class="card-ai card-ai-optional">
+        <div class="ai-dot"></div>
+        IA disponible · Validación de documentos soporte
+      </div>
+      <div class="card-footer">
+        <span class="card-cta-text">Ver solución completa</span>
+        <div class="arrow-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trading -->
+    <div class="card" onclick="openModal('trading')">
+      <div class="card-bar bar-green"></div>
+      <div class="card-chip chip-green">Trading Inteligente</div>
+      <p class="card-problem">El trader decide bajo presión, con información dispersa y sin criterio sistemático.</p>
+      <p class="card-solution"><b>Agente de IA</b> que analiza el mercado en tiempo real y acompaña cada decisión con contexto preciso.</p>
+      <div class="card-ai">
+        <div class="ai-dot"></div>
+        IA integrada · Motor central del producto
+      </div>
+      <div class="card-footer">
+        <span class="card-cta-text">Ver solución completa</span>
+        <div class="arrow-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ AI BANNER ══ -->
+<div class="ai-banner">
+  <div class="ai-box">
+    <div class="ai-box-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="4" fill="rgba(167,139,250,.9)"/>
+        <circle cx="12" cy="12" r="8" stroke="rgba(167,139,250,.35)" stroke-width="1" stroke-dasharray="3 2"/>
+        <circle cx="12" cy="12" r="11" stroke="rgba(167,139,250,.15)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="ai-box-text">
+      <strong>Inteligencia Artificial de última generación — integrada, no añadida</strong>
+      <p>Cada solución puede activar módulos de IA que aprenden del flujo real de trabajo: clasifican, validan, extraen y sugieren — sin reemplazar al equipo, sino potenciándolo. La IA trabaja en segundo plano; el usuario solo ve los resultados.</p>
+    </div>
+    <div class="ai-box-right">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="rgba(196,181,253,.9)"/><circle cx="6" cy="6" r="5.5" stroke="rgba(167,139,250,.4)" stroke-width=".8"/></svg>
+      Tecnología GPT-class
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="bottom">
+  <div class="contact-box">
+    <div class="contact-left">
+      <strong>¿Le interesa alguna solución?</strong>
+      <p>Escríbanos hoy. En la misma reunión puede ver el sistema funcionando con sus propios datos — sin instalaciones previas.</p>
+      <div class="urgency-tag">
+        <div class="urgency-dot"></div>
+        Listo para operar el mismo día de la presentación
+      </div>
+    </div>
+    <div class="contact-right">
+      <a href="mailto:contacto@ejemplo.com" class="contact-btn">
+        Solicitar una demostración
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <p class="contact-fine">Sin compromisos &nbsp;·&nbsp; <span>Respuesta en &lt;24 h</span> &nbsp;·&nbsp; Sin permanencia</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL ══ -->
+<div class="overlay" id="ov" onclick="handleOv(event)">
+  <div class="sheet" id="sheetEl">
+    <div class="sheet-top">
+      <div class="sh-handle" onclick="closeModal()"></div>
+      <button class="sh-close" onclick="closeModal()">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#364557" stroke-width="1.6" stroke-linecap="round"><path d="M1 1l8 8M9 1L1 9"/></svg>
+      </button>
+    </div>
+    <div id="mb"></div>
+  </div>
+</div>
+
+<script>
+const data={
+  documental:{
+    chip:'chip-blue',tag:'Gestión Documental',
+    title:'Del caos documental al control total — sin cambiar cómo trabaja su equipo',
+    problem:'En la mayoría de organizaciones los archivos viven dispersos en correos, chats y carpetas sin orden. Encontrar un documento, saber quién lo aprobó o cuál versión es la válida puede tomar horas — y en auditorías, ese desorden tiene un costo real y medible.',
+    solution:'Una plataforma centralizada donde cada documento tiene un lugar, un responsable y un historial completo. Flujos de aprobación configurables, control de versiones automático y acceso por roles — todo trazable desde el primer día.',
+    aiTitle:'IA Opcional · Clasificación inteligente de documentos',
+    aiBody:'Active el módulo de IA y el sistema clasifica automáticamente cada archivo al cargarlo, extrae información clave (fechas, montos, partes involucradas), detecta duplicados y convierte documentos escaneados en datos estructurados y buscables. Los archivos dejan de ser archivos — se convierten en información accionable.',
+    aiOptional:true,
+    pills:['Control de versiones','Flujos de aprobación','Acceso por roles','Trazabilidad completa','Búsqueda avanzada','Multi-empresa','OCR inteligente (IA)','Clasificación automática (IA)'],
+    for:'Coordinadores administrativos, gerentes de operaciones y equipos legales que necesitan orden sin complejidad técnica.',
+    day1:'El mismo día de la presentación, su equipo puede estar cargando documentos reales y viendo el flujo de aprobación funcionando.'
+  },
+  contratos:{
+    chip:'chip-orange',tag:'Contratos & Cuentas de Cobro',
+    title:'Cero contratos perdidos, cero cobros olvidados, cero multas por vencimiento',
+    problem:'Las entidades públicas y empresas privadas en Colombia gestionan contratos y cuentas de cobro con procesos manuales, en papel o en hojas de cálculo. Eso genera errores, retrasos en pagos y riesgo legal por incumplimiento normativo — todo prevenible.',
+    solution:'Un sistema integral adaptado a la normativa colombiana que centraliza contratos, automatiza alertas de vencimiento, gestiona cuentas de cobro y genera reportes listos para entidades de control — desde la firma hasta el pago efectivo.',
+    aiTitle:'IA Opcional · Validación automática de documentos soporte',
+    aiBody:'Active el módulo de IA y el sistema valida automáticamente los documentos que llegan como soporte de pago: detecta inconsistencias entre lo pactado y lo presentado, verifica que facturas, actas y certificaciones estén completas y en regla, y alerta sobre documentos vencidos o con información contradictoria — antes de que lleguen a su escritorio.',
+    aiOptional:true,
+    pills:['Normativa colombiana','Alertas de vencimiento','Cuentas de cobro','Firmas electrónicas','Reportes institucionales','Compatible SECOP','Validación de soportes (IA)','Detección de inconsistencias (IA)'],
+    for:'Jefes de contratación, tesoreros y directivos de entidades públicas y privadas que buscan cumplimiento, eficiencia y cero multas.',
+    day1:'En la misma sesión de presentación puede registrar su primer contrato real y ver cómo fluye hasta la aprobación del pago.'
+  },
+  trading:{
+    chip:'chip-green',tag:'Trading Inteligente',
+    title:'Menos ruido, mejores decisiones — un agente que piensa junto al trader',
+    problem:'Los traders toman decisiones bajo presión con múltiples fuentes de información simultáneas. Sin un sistema de apoyo estructurado, las emociones y el ruido del mercado generan errores costosos y patrones de pérdida repetitivos que se normalizan con el tiempo.',
+    solution:'Una aplicación con un agente de IA que analiza el mercado en tiempo real, identifica patrones, cruza indicadores y entrega señales claras con contexto — potenciando el criterio del trader, no reemplazándolo. El trader decide; la IA informa, alerta y recuerda.',
+    aiTitle:'IA Core · Motor central del producto',
+    aiBody:'La inteligencia artificial no es un añadido aquí — es el producto. El agente procesa datos de mercado en tiempo real, correlaciona múltiples indicadores técnicos y fundamentales, genera alertas contextualizadas antes de cada decisión, y construye un historial de razonamiento que le permite al trader aprender de su propio proceso. Con el tiempo, el agente aprende el estilo de operación del usuario y adapta sus señales.',
+    aiOptional:false,
+    pills:['IA en tiempo real','Análisis técnico automatizado','Gestión de riesgo dinámica','Alertas personalizadas','Historial de decisiones','Backtesting','Aprendizaje por perfil','Señales contextualizadas'],
+    for:'Traders activos, fondos de inversión y analistas financieros que quieren sistematizar y mejorar su toma de decisiones.',
+    day1:'Conecte su cuenta en la demostración y vea al agente analizar el mercado real en vivo — en los primeros 10 minutos ya está entregando señales.'
+  }
+};
+
+function openModal(id){
+  const p=data[id];
+  const aiLabel=p.aiOptional
+    ?'<span style="font-size:10.5px;opacity:.6;font-weight:400;margin-left:6px">· Módulo adicional activable</span>'
+    :'<span style="font-size:10.5px;opacity:.6;font-weight:400;margin-left:6px">· Siempre activo</span>';
+  document.getElementById('mb').innerHTML=`
+    <div class="m-chip ${p.chip}">${p.tag}</div>
+    <h2 class="m-title">${p.title}</h2>
+    <div class="video-ph">
+      <div class="play-wrap">
+        <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M2 2l14 8-14 8V2z" fill="white"/></svg>
+      </div>
+      <span class="video-lbl">Demo disponible próximamente</span>
+    </div>
+    <p class="m-lbl">El problema</p>
+    <p class="m-text">${p.problem}</p>
+    <p class="m-lbl">La solución</p>
+    <p class="m-text">${p.solution}</p>
+    <div class="ai-feature">
+      <div class="ai-feature-head">
+        <div class="ai-icon-sm">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2.5" fill="rgba(167,139,250,.9)"/><circle cx="7" cy="7" r="5.5" stroke="rgba(167,139,250,.4)" stroke-width=".8" stroke-dasharray="2 1.5"/></svg>
+        </div>
+        <span class="ai-feature-title">${p.aiTitle}${aiLabel}</span>
+      </div>
+      <p class="ai-feature-body">${p.aiBody}</p>
+      ${p.aiOptional?'<p class="ai-optional-note">Este módulo puede activarse en cualquier momento sin afectar el resto del sistema.</p>':''}
+    </div>
+    <p class="m-lbl">Funcionalidades clave</p>
+    <div class="pills">${p.pills.map(t=>`<span class="pill">${t}</span>`).join('')}</div>
+    <p class="m-lbl">Pensado para</p>
+    <p class="m-text">${p.for}</p>
+    <div class="day1-box">
+      <p class="day1-label">Desde el primer día</p>
+      <p class="day1-text">${p.day1}</p>
+    </div>
+    <div class="m-actions">
+      <a href="mailto:contacto@ejemplo.com" class="m-btn-primary">
+        Quiero una demostración
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"><path d="M1.5 6.5h10M8 2.5l4.5 4-4.5 4"/></svg>
+      </a>
+      <a href="#" class="m-btn-secondary" onclick="closeModal();return false">Ver otros productos</a>
+    </div>`;
+  const ov=document.getElementById('ov');
+  ov.classList.add('open');
+  document.getElementById('sheetEl').scrollTop=0;
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('ov').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function handleOv(e){if(e.target===document.getElementById('ov'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
